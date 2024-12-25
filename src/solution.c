@@ -549,7 +549,7 @@ int cherry_pickup(int **grid, int grid_size, int *grid_col_size) {
     }
     f[0][0] = grid[0][0];
     for (int k = 1; k < n * 2 - 1; k++) {
-        for (int x1 = MIN(k, n -1); x1 >= Max(k-n+1,0); x1--) {
+        for (int x1 = MIN(k, n -1); x1 >= MAX(k-n+1,0); x1--) {
             for (int x2 = MIN(k, n-1); x2 >= x1; x2--) {
                 int y1 = k - x1, y2 = k - x2;
                 if (grid[x1][y1] == -1 || grid[x2][y2] == -1) {
