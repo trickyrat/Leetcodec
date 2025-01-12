@@ -5,6 +5,7 @@
 #include <cmocka.h>
 
 #include "utils.h"
+#include "atm.h"
 #include "interview_solution.h"
 #include "recent_counter.h"
 #include "solution.h"
@@ -77,7 +78,7 @@ static void test_remove_element() {
     // Action
     int actual1 = remove_element(nums1, 4, 3);
     int actual2 = remove_element(nums2, 8, 2);
-    
+
     // Assertion
     assert_int_equal(actual1, 2);
     assert_int_equal(actual2, 5);
@@ -571,9 +572,9 @@ static void test_final_prices() {
 }
 
 static void test_projection_area() {
-    int nums1[4] = {1, 2, 3, 4}; // 2*2
-    int nums2[1] = {2}; // 1*1
-    int nums3[4] = {1, 0, 0, 2}; // 2*2
+    int nums1[4] = {1, 2, 3, 4};// 2*2
+    int nums2[1] = {2};         // 1*1
+    int nums3[4] = {1, 0, 0, 2};// 2*2
 
     int **grid1 = generate_matrix(nums1, 2, 2);
     int **grid2 = generate_matrix(nums2, 1, 1);
@@ -823,8 +824,34 @@ static int test_interview_solution() {
     return cmocka_run_group_tests(interview_solution_tests, NULL, NULL);
 }
 
+
+static void test_atm_functionality() {
+    ATM *atm = atm_create();
+    atm_deposit(atm, ARRAY(int, 0, 0, 1, 2, 1), 5);
+    int return_size = 0;
+    int *actual1 = atm_withdraw(atm, 600, &return_size);
+    assert_memory_equal(ARRAY(int, 0, 0, 1, 0, 1), actual1, 5);
+    atm_deposit(atm, ARRAY(int, 0, 1, 0, 1, 1), 5);
+    int *actual2 = atm_withdraw(atm, 600, &return_size);
+    assert_memory_equal(ARRAY(int, -1), actual2, 1);
+    int *actual3 = atm_withdraw(atm, 550, &return_size);
+    assert_memory_equal(ARRAY(int, 0, 1, 0, 0, 1), actual3, 5);
+
+    atm_free(atm);
+}
+
+static int test_atm() {
+    const struct CMUnitTest atm_tests[] = {
+            cmocka_unit_test(test_atm_functionality),
+    };
+
+    return cmocka_run_group_tests(atm_tests, NULL, NULL);
+}
+
+
 int main() {
     test_solution();
     test_interview_solution();
+    test_atm();
     return 0;
 }

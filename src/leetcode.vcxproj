@@ -142,6 +142,7 @@
     <ClCompile Include="main.c" />
     <ClCompile Include="solution.c" />
     <ClCompile Include="utils.c" />
+    <ClCompile Include="atm.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data_structures.h" />
@@ -150,6 +151,7 @@
     <ClInclude Include="recent_counter.h" />
     <ClInclude Include="solution.h" />
     <ClInclude Include="utils.h" />
+    <ClInclude Include="atm.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
